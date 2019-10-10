@@ -4,15 +4,15 @@
       <GoogleMapMarker
         v-for="marker in markers"
         :key="marker.id"
-        :marker="marker"
         :google="google"
-        :map="map" />
+        :map="map"
+        :marker="marker" />
       <GoogleMapLine
         v-for="line in lines"
         :key="line.id"
-        :path.sync="line.path"
         :google="google"
-        :map="map" />
+        :map="map"
+        :path.sync="line.path" />
     </template>
   </GoogleMapLoader>
 </template>
