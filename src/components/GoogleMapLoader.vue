@@ -22,15 +22,8 @@ export default {
     };
   },
   async mounted() {
-    const googleMapApi = await GoogleMapsApiLoader({ apiKey: this.apiKey });
-    this.google = googleMapApi;
-    this.initializeMap();
-  },
-  methods: {
-    initializeMap() {
-      const mapContainer = this.$refs.googleMap;
-      this.map = new this.google.maps.Map(mapContainer, this.mapConfig);
-    }
+    this.google = await GoogleMapsApiLoader({ apiKey: this.apiKey });
+    this.map = new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
   }
 };
 </script>
