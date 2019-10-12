@@ -1,32 +1,50 @@
 <template>
   <div id="app">
-    <GoogleMap class="map" :center="point2" :zoom="7">
-      <GoogleMapMarker :position="point1" />
-      <GoogleMapMarker :position="point2" />
-      <GoogleMapMarker :position="point3" />
-      <GoogleMapLine :path="[point1, point2]" />
-      <GoogleMapLine :path="[point2, point3]" />
+    <GoogleMap class="map" :center="forssa" :zoom="7">
+      <GoogleMapMarker :position="helsinki" />
+      <GoogleMapMarker :position="turku" />
+      <GoogleMapMarker :position="tampere" />
+      <GoogleMapPolygon :path="[helsinki, turku, tampere]" />
+      <GoogleMapMarker :position="lahti">
+        <GoogleMapInfoWindow>
+          <p>Hello <a href="http://www.google.fi">this</a> new world</p>
+        </GoogleMapInfoWindow>
+      </GoogleMapMarker>
+      <GoogleMapMarker :position="kouvola" />
+      <GoogleMapPolyline :path="[lahti, kouvola]" />
+      <GoogleMapMarker :position="maarianhamina" />
+      <GoogleMapCircle :center="maarianhamina" :radius="40000" />
     </GoogleMap>
   </div>
 </template>
 
 <script>
 import GoogleMap from '@/components/GoogleMap.vue';
-import GoogleMapLine from "@/components/GoogleMapLine";
+import GoogleMapCircle from "@/components/GoogleMapCircle";
+import GoogleMapInfoWindow from "@/components/GoogleMapInfoWindow";
 import GoogleMapMarker from "@/components/GoogleMapMarker";
+import GoogleMapPolygon from "@/components/GoogleMapPolygon";
+import GoogleMapPolyline from "@/components/GoogleMapPolyline";
 
 export default {
   name: 'app',
   components: {
     GoogleMap,
-    GoogleMapLine,
-    GoogleMapMarker
+    GoogleMapCircle,
+    GoogleMapInfoWindow,
+    GoogleMapMarker,
+    GoogleMapPolygon,
+    GoogleMapPolyline
   },
   data() {
     return {
-      point1: { lat: 3, lng: 105 },
-      point2: { lat: 5, lng: 100 },
-      point3: { lat: 7, lng: 95 },
+      helsinki: { lat: 60.170833, lng: 24.9375 },
+      turku: { lat: 60.451389, lng: 22.266667 },
+      tampere: { lat: 61.498056, lng: 23.760833 },
+      forssa: { lat: 60.813889, lng: 23.622222 },
+      lahti: { lat: 60.983333, lng: 25.65 },
+      kouvola: { lat: 60.868056, lng: 26.704167 },
+      maarianhamina: { lat: 60.098611, lng: 19.944444 },
     }
   }
 }
@@ -34,6 +52,6 @@ export default {
 
 <style scoped>
 .map {
-  height: 400px;
+  height: 500px;
 }
 </style>

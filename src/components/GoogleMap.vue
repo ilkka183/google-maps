@@ -1,6 +1,6 @@
 <template>
   <div class="google-map" ref="googleMap">
-    <template v-if="apiLoaded">
+    <template v-if="mapLoaded">
       <slot></slot>
     </template>
   </div>
@@ -8,13 +8,12 @@
 
 <script>
 import GoogleMapsApiLoader from "google-maps-api-loader";
-import { mapSettings } from "@/constants/mapSettings";
 
 export default {
   props: {
-    center: { type: Object, required: false },
-    zoom: { type: Number, required: false },
-    apiKey: { type: String, required: false }
+    apiKey: { type: String, required: false },
+    center: { type: Object, required: true },
+    zoom: { type: Number, required: false, default: 7 }
   },
   data() {
     return {
@@ -24,21 +23,19 @@ export default {
   },
   async mounted() {
     this.google = await GoogleMapsApiLoader({ apiKey: this.apiKey });
-    this.map = new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+    this.map = new this.google.maps.Map(this.mapElement, this.mapOptions);
   },
   computed: {
-    mapConfig() {
-      let config = mapSettings;
-
-      if (this.zoom)
-        config.zoom = this.zoom;
-
+    mapElement() {
+      return this.$refs.googleMap;
+    },
+    mapOptions() {
       return {
-        ...config,
-        center: this.center
+        center: this.center,
+        zoom: this.zoom
       }
     },
-    apiLoaded() {
+    mapLoaded() {
       return this.google && this.map;
     }
   }
