@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <GoogleMap class="map" :center="forssa" :zoom="7">
+    <GoogleMap class="map" :center="kausala" :zoom="10">
       <GoogleMapMarker :position="helsinki" />
       <GoogleMapMarker :position="turku" />
       <GoogleMapMarker :position="tampere" />
@@ -10,8 +10,10 @@
           <p>Hello <a href="http://www.google.fi">this</a> new world</p>
         </GoogleMapInfoWindow>
       </GoogleMapMarker>
+      <GoogleMapMarker :position="kausala" />
       <GoogleMapMarker :position="kouvola" />
-      <GoogleMapPolyline :path="[lahti, kouvola]" />
+      <GoogleMapPolyline :path="[lahti, kausala, kouvola]" />
+      <GoogleMapMarker :position="geolocation" />
       <GoogleMapMarker :position="maarianhamina" />
       <GoogleMapCircle :center="maarianhamina" :radius="40000" />
     </GoogleMap>
@@ -43,8 +45,11 @@ export default {
       tampere: { lat: 61.498056, lng: 23.760833 },
       forssa: { lat: 60.813889, lng: 23.622222 },
       lahti: { lat: 60.983333, lng: 25.65 },
+      kausala: { lat: 60.89, lng: 26.33 },
+      mankala: { lat: 60.985, lng: 26.245 },
       kouvola: { lat: 60.868056, lng: 26.704167 },
       maarianhamina: { lat: 60.098611, lng: 19.944444 },
+      geolocation: { geolocation: true }
     }
   }
 }
